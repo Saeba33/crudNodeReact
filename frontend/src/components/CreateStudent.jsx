@@ -1,22 +1,19 @@
+import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-
 
 function CreateStudent() {
+	const [name, setName] = useState("");
+	const [email, setEmail] = useState("");
+	const navigate = useNavigate();
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const navigate=useNavigate();
-
-    function handleSubmit(event) {
-        event.preventDefault();
-        axios.post('http://localhost:8081/create', {name, email})
-        .then(res => {
-            console.log("created student", res);
-            navigate('/');
-        })
-    }
+	function handleSubmit(event) {
+		event.preventDefault();
+		axios.post("http://localhost:8081/create", { name, email }).then((res) => {
+			console.log("created student", res);
+			navigate("/");
+		});
+	}
 	return (
 		<div>
 			<div>
@@ -27,7 +24,7 @@ function CreateStudent() {
 						<input
 							type="text"
 							placeholder="entre votre nom"
-							onchange={(e) => setName(e.target.value)}
+							onChange={(e) => setName(e.target.value)}
 						/>
 					</div>
 					<div>
@@ -35,7 +32,7 @@ function CreateStudent() {
 						<input
 							type="text"
 							placeholder="entre votre email"
-							onchange={(e) => setEmail(e.target.value)}
+							onChange={(e) => setEmail(e.target.value)}
 						/>
 					</div>
 					<button>Soumettre</button>
