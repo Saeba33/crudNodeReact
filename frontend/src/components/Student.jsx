@@ -12,6 +12,15 @@ function Student() {
 			.catch((err) => console.log(err));
 	}, []);
 
+	const handleDelete = async (id) => {
+		try {
+			await axios.delete("http://localhost:8081/student/" + id);
+			window.location.reload();
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
 	return (
 		<div className="text-red-500">
 			Hello World
@@ -30,8 +39,10 @@ function Student() {
 								<td>{data.name}</td>
 								<td>{data.email}</td>
 								<td>
-									<button>Modifier</button>
-									<button>Supprimer</button>
+									<Link to={`/update/${data.id}`}>Modifier</Link>
+									<button onClick={(e) => handleDelete(data.id)}>
+										Supprimer
+									</button>
 								</td>
 							</tr>
 						))}
