@@ -1,22 +1,22 @@
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function Student() {
-
 	const [student, setStudent] = useState([]);
 
 	useEffect(() => {
-		axios.get('http://localhost:8081')
-		.then(res => console.log(res))
-		.catch(err => console.log(err));
-	}, [])
-
+		axios
+			.get("http://localhost:8081")
+			.then((res) => setStudent(res.data))
+			.catch((err) => console.log(err));
+	}, []);
 
 	return (
 		<div className="text-red-500">
 			Hello World
 			<div>
-				<button>Ajouter</button>
+				<Link to="/create">Ajouter</Link>
 				<table>
 					<thead>
 						<tr>
@@ -25,14 +25,16 @@ function Student() {
 						</tr>
 					</thead>
 					<tbody>
-						{
-							student.map((data, index) => (
-								<tr key={index}>
-									<td>{data.name}</td>
-									<td>{DataTransfer.email}</td>
-								</tr>
-							))
-						}
+						{student.map((data, index) => (
+							<tr key={index}>
+								<td>{data.name}</td>
+								<td>{data.email}</td>
+								<td>
+									<button>Modifier</button>
+									<button>Supprimer</button>
+								</td>
+							</tr>
+						))}
 					</tbody>
 				</table>
 			</div>
